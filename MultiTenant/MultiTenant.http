@@ -1,6 +1,29 @@
-@MultiTenant_HostAddress = http://localhost:5264
+@MultiTenant_HostAddress = https://localhost:7247
 
 GET {{MultiTenant_HostAddress}}/weatherforecast/
 Accept: application/json
 
+###
+
+GET {{MultiTenant_HostAddress}}/api/product
+tenantId:tenant3
+
+###
+
+POST {{MultiTenant_HostAddress}}/api/product
+Content-Type: application/json
+tenantId:tenant3
+
+{
+  "id":0,
+  "name": "product 1",
+  "price": 7000,
+  "rated": 20
+}
+
+###
+
+@id=1
+GET {{MultiTenant_HostAddress}}/api/product/{{id}}
+tenantId:tenant1
 ###
