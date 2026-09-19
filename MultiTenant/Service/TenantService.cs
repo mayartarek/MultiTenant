@@ -10,12 +10,12 @@ namespace MultiTenant.Service
         private readonly TenantSettings _tenantSettings;
         public TenantService(IHttpContextAccessor httpContextAccessor,IOptions<TenantSettings> tenantSettings) 
         { 
-            _httpContext = httpContextAccessor.HttpContext;
+            _httpContext = httpContextAccessor!.HttpContext;
             _tenantSettings = tenantSettings.Value;
 
-           _currentTenant = GetTenantFromRequest() ?? throw new Exception("Tenant not found in request.");
+            _currentTenant = GetTenantFromRequest();
 
-            if (_currentTenant.ConnectionString != null)
+            if (_currentTenant!=null&&  _currentTenant!.ConnectionString != null)
             {
                 _currentTenant.ConnectionString = _currentTenant.ConnectionString;  
             }
@@ -24,11 +24,11 @@ namespace MultiTenant.Service
         }
         private Tenant? GetTenantFromRequest()
         {
+            if (_httpContext == null) return null;
+
             var tenantId = _httpContext.Request.Headers["tenantId"].FirstOrDefault();
-            if (tenantId == null)
-            {
-                return null;
-            }
+            if (tenantId == null) return null;
+
             return _tenantSettings.Tenants.FirstOrDefault(t => t.Id == tenantId);
         }
         public Tenant? GetCURRENT_TENANT_ID()

@@ -13,7 +13,7 @@ namespace MultiTenant.Data
         {
             this.tenantService = tenantService;
             var currentTenant = tenantService.GetCURRENT_TENANT_ID();
-            string? tenantId = currentTenant!.Id;
+            string? tenantId = currentTenant?.Id;
             this._currentTenantId = tenantId;
         }
 
