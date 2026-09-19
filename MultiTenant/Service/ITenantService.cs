@@ -4,9 +4,9 @@ namespace MultiTenant.Service
 {
     public interface ITenantService
     {
-        public string? GetDatabaseConnectionString();
-        public string? GetDatabaseProvider();
-        public Tenant? GetCURRENT_TENANT_ID();
+         string? GetDatabaseConnectionString();
+         string? GetDatabaseProvider();
+         Tenant? GetCURRENT_TENANT_ID();
 
     }
 }
